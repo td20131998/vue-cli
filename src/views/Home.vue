@@ -102,12 +102,18 @@ export default {
       this.newTodo = "";
     },
     removeTodo: function(index) {
-      // this.counter--;
+      this.activeTodos--;
       this.todos.splice(index, 1);
     },
     completeTodo: function(index) {
-      this.activeTodos--;
-      this.$set(this.todos, index, { ...this.todos[index], active: false });
+      // this.activeTodos--;
+      let toggleActive = !this.todos[index].active;
+      if (toggleActive) {
+        this.activeTodos++;
+      } else {
+        this.activeTodos--;
+      }
+      this.$set(this.todos, index, { ...this.todos[index], active: toggleActive });
     },
     changeVisibility: function(type) {
       this.visibility = type;
