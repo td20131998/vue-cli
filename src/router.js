@@ -4,6 +4,8 @@ import Home from './views/Home.vue'
 import About from './views/About.vue'
 import Login from './views/Login.vue'
 import NotFound from './views/NotFound.vue'
+import PageLayout from './views/PageLayout.vue'
+import Contact from './views/Contact.vue'
 
 Vue.use(Router)
 
@@ -18,12 +20,20 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      name: 'pageLayout',
+      component: PageLayout,
       meta: {
         requiresAuth: true
       },
       children: [
+        {
+          path: '/',
+          name: 'home',
+          component: Home,
+          meta: {
+            requiresAuth: true
+          }
+        },
         {
           path: '/about',
           name: 'about',
@@ -35,11 +45,11 @@ export default new Router({
         {
           path: '/contact',
           name: 'contact',
-          component: () => (<template><div>This is contact page</div></template>),
+          component: Contact,
           meta: {
             requiresAuth: true
           }
-        }
+        },
       ]
     },
     {

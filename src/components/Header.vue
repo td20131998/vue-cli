@@ -23,6 +23,10 @@
             <router-link to="/about" class="nav-link">About</router-link>
         </li>
 
+        <li class="nav-item active">
+            <router-link to="/contact" class="nav-link">Contact</router-link>
+        </li>
+
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -34,8 +38,8 @@
             aria-expanded="false"
           >More</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" v-on:click="logout">Logout</a>
+            <a class="dropdown-item" href="#">Your info</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Something else here</a>
           </div>
@@ -49,3 +53,14 @@
     </div>
   </nav>
 </template>
+
+<script>
+export default {
+  methods: {
+    logout: function() {
+      localStorage.removeItem('isLoggedIn');
+      this.$router.push('/login');
+    }
+  }
+}
+</script>

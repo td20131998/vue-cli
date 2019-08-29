@@ -10,9 +10,7 @@ export default {
     methods: {
         handleLogin: function() {
             localStorage.setItem('isLoggedIn', true);
-            console.log(this.$route.from);
             this.$router.push(this.$route.query.redirect || '/');
-            // console.log(this.$router);
         }
     }
 }
