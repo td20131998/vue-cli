@@ -15,19 +15,19 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+        <li class="nav-item active pl-3">
             <router-link to="/" class="nav-link">Home</router-link>
         </li>
 
-        <li class="nav-item active">
+        <li class="nav-item active pl-3">
             <router-link to="/about" class="nav-link">About</router-link>
         </li>
 
-        <li class="nav-item active">
+        <li class="nav-item active pl-3">
             <router-link to="/contact" class="nav-link">Contact</router-link>
         </li>
 
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown float-right pl-3">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -38,18 +38,18 @@
             aria-expanded="false"
           >More</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" v-on:click="logout">Logout</a>
-            <a class="dropdown-item" href="#">Your info</a>
+            <span class="dropdown-item" v-on:click="logout">Logout</span>
+            <a class="dropdown-item">Your info</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Something else here</a>
           </div>
         </li>
       </ul>
       
-      <form class="form-inline my-2 my-lg-0">
+      <!-- <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+      </form> -->
     </div>
   </nav>
 </template>

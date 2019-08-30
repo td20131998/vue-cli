@@ -7,13 +7,23 @@
     <div class="row">
       <div class="col text-center">
         <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <button v-on:click="selectAll" class="btn btn-default btn-arrow pb-1">
+              <font-awesome-icon
+                icon="chevron-down"
+                size="lg"
+                class="ml-2 mr-2"
+              />
+            </button>
+          </div>
+
           <input
             class="form-control"
             placeholder="What's next?"
             v-on:keyup.enter="addTodo"
             v-model="newTodo"
+            style="border-left: none; height: 50px"
           />
-          <button v-on:click="addTodo" class="btn btn-success ml-3">Add</button>
         </div>
       </div>
     </div>
@@ -31,28 +41,25 @@
       </ul>
     </div>
 
-    <div class="row mt-3" v-show="todos.length" style="color: #8E8E8E">
-      <div class="col">
-        <span class="float-left">{{ activeTodos == 1 ? "1 item" : activeTodos + " items" }} left</span>
+    <div class="mt-3 d-flex justify-content-between" v-show="todos.length" style="color: #8E8E8E">
+      <div>
+        <span class="ml-3">{{ activeTodos == 1 ? "1 item" : activeTodos + " items" }} left</span>
+      </div>
 
-        <ul class="d-inline">
-          <li class="d-inline mr-2">
-            <button class="btn btn-light" v-on:click="changeVisibility('all')">All</button>
-          </li>
-          <li class="d-inline mr-2">
-            <button class="btn btn-light" v-on:click="changeVisibility('active')">Active</button>
-          </li>
-          <li class="d-inline">
-            <button class="btn btn-light" v-on:click="changeVisibility('completed')">Completed</button>
-          </li>
-        </ul>
+      <ul>
+        <li class="d-inline mr-2">
+          <button class="btn btn-light" v-on:click="changeVisibility('all')">All</button>
+        </li>
+        <li class="d-inline mr-2">
+          <button class="btn btn-light" v-on:click="changeVisibility('active')">Active</button>
+        </li>
+        <li class="d-inline">
+          <button class="btn btn-light" v-on:click="changeVisibility('completed')">Completed</button>
+        </li>
+      </ul>
 
-        <button 
-          class="float-right btn btn-success clearfix"
-          v-on:click="clearCompletedTodos"
-        >
-          Clear completed
-        </button>
+      <div>
+        <button class="btn btn-success" v-on:click="clearCompletedTodos">Clear completed</button>
       </div>
     </div>
     <router-view />
@@ -79,15 +86,16 @@ export default {
   name: "home",
   data: function() {
     let todos = [
-        { id: 1, name: "Do something fun!", active: true },
-        { id: 2, name: "Learn to relax", active: false },
-        { id: 3, name: "Climb moutain", active: true }
+      { id: 1, name: "Do something fun!", active: true },
+      { id: 2, name: "Learn to relax", active: false },
+      { id: 3, name: "Climb moutain", active: true }
     ];
     return {
       newTodo: "",
       activeTodos: todos.filter(todo => todo.active).length,
       todos: todos,
-      visibility: 'all'
+      visibility: "all",
+      selectedAll: false
     };
   },
   computed: {
@@ -106,20 +114,32 @@ export default {
       this.todos.splice(index, 1);
     },
     completeTodo: function(index) {
-      // this.activeTodos--;
       let toggleActive = !this.todos[index].active;
       if (toggleActive) {
         this.activeTodos++;
       } else {
         this.activeTodos--;
       }
-      this.$set(this.todos, index, { ...this.todos[index], active: toggleActive });
+      this.$set(this.todos, index, {
+        ...this.todos[index],
+        active: toggleActive
+      });
     },
     changeVisibility: function(type) {
       this.visibility = type;
     },
     clearCompletedTodos: function() {
+      // if (this.selectedAll) {
 
+      // }
+    },
+    selectAll: function() {
+      if (!this.selectedAll) {
+        this.todos = this.todos.map(todo => ({ ...todo, active: todo.active ? !todo.active : todo.active }))
+      } else {
+        this.todos = this.todos.map(todo => ({ ...todo, active: true }))
+      }
+      this.selectedAll = !this.selectedAll;
     }
   },
   components: {
@@ -127,3 +147,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.btn-arrow {
+  border: 1px solid #ced4da;
+  color: #ced4da;
+  border-right: none;
+}
+</style>
