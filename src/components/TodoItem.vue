@@ -10,6 +10,7 @@
         size="lg"
         transform="shrink-6"
         class="text-success done-icon"
+        v-show="!todo.active"
       />
     </button>
     <span 
@@ -22,8 +23,6 @@
       size="lg"
       class="float-right text-danger mt-1"
       v-on:click="$emit('remove')"
-      @mouseover="hover = true"
-      @mouseleave="hover = false"
       v-show="hover"
     />
   </li>
